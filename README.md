@@ -11,6 +11,9 @@ chrome bookmark search extention
 - find ![icon](https://raw.githubusercontent.com/wahaha2012/chrome-bookmark-finder/master/icons/icon19.png) on the right of your address bar, then click it.
 - in the popup page, input your keyword to find bookmark needed.
 
+## Install from chrome webstore
+- [[Chrome Bookmark Finder]](https://chrome.google.com/webstore/detail/bookmark-finder/oohbenblbafhdehcneglilgnflbhobkk)
+
 ## Install with extension file
 - download extension file [[download link]](https://github.com/wahaha2012/chrome-bookmark-finder/raw/v0.1.0/chrome-bookmark-finder.crx)
 - open chrome app and open tab chrome://extensions/

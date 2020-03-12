@@ -108,17 +108,37 @@
 				className=' class="bookmarkitem"';
 			}
 
-			if(obj.keywords.toLowerCase().indexOf(keyword.toLowerCase()) > -1){
+			var regex = new RegExp(`${keyword}`,'gi')
+			if(regex.test(obj.keywords)){
 				if(obj.url){
-					result.push('<a href="'+obj.url+'"'+className+'>'+obj.title.replace(keyword, '<strong>'+keyword+'</strong>')+'<span class="url">'+obj.url+'</span></a>');
+					result.push('<a href="'+obj.url+'"'+className+'>'+addStyle(keyword,obj.title)+'<span class="url">'+obj.url+'</span></a>');
 				}else if(obj.content){
-					result.push('<a'+className+'>'+obj.title.replace(keyword, '<strong>'+keyword+'</strong>')+'<span class="text">'+obj.content+'</span></a>');
+					result.push('<a'+className+'>'+addStyle(keyword,obj.title)+'<span class="text">'+obj.content+'</span></a>');
 				}
 			}
 		}
 
 		return result;
 	}
+
+	/**
+	 *  将原始内容按关键字进行替换（不区分大小写）
+	 *
+	 * @param {string} word  需要替换的关键字
+	 * @param {string} str   原始内容
+	 * @returns
+	 */
+	function addStyle(word, str){
+		var reg = new RegExp(`${word}`,'gi');
+		var matchWordArr = str.match(reg);
+		if(matchWordArr){
+			matchWordArr.forEach(item=>{
+				var wordReg = new RegExp(`(<span class='red'>)?${item}(</span>)?`,'g');;
+				str = str.replace(wordReg,`<strong>${item}</strong>`)
+			})
+		}
+		return str
+	};
 
 	function showMatchedList(result){
 		if(result.length < 1){
@@ -136,7 +156,6 @@
 	function searchInBookmarks(keyword){
 		keyword = keyword || "";
 		chrome.bookmarks.search(keyword, function(bookmarksArray){
-			// console.log(bookmarksArray);
 			var matchedList=[];
 			matchedList = matchedList.concat(getMatchedList(bookmarksArray, keyword));
 

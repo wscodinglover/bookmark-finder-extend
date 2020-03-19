@@ -133,7 +133,7 @@
 		var matchWordArr = str.match(reg);
 		if(matchWordArr){
 			matchWordArr.forEach(item=>{
-				var wordReg = new RegExp(`(<span class='red'>)?${item}(</span>)?`,'g');;
+				var wordReg = new RegExp(`(?<![</])${item}`,'g'); // 关键词 前不能是 < 或者 /
 				str = str.replace(wordReg,`<strong>${item}</strong>`)
 			})
 		}
